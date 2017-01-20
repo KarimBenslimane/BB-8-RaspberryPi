@@ -4,14 +4,20 @@
 
 #include "../../Includes/Communication/client.h"
 
-int client::initiate(int portno, const char * hostname) {
-    portno = portno;
+int client::initiate() {
+    printf("Please enter the port#: ");
+    bzero(buffer,256);
+    fgets(buffer,255,stdin);
+    portno = atoi(buffer);
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0){
-        printf("ERROR opening socket");
+        printf("ERROR opening socket\n");
         return 0;
     }
-    server = gethostbyname(hostname);
+    printf("Please enter the hostname: ");
+    bzero(buffer,256);
+    fgets(buffer,255,stdin);
+    server = gethostbyname(buffer);
     if (server == NULL) {
         printf("ERROR, no such host\n");
         return 0;
@@ -23,10 +29,10 @@ int client::initiate(int portno, const char * hostname) {
           server->h_length);
     serv_addr.sin_port = htons(portno);
     if (connect(sockfd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0){
-        printf("ERROR connecting");
+        printf("ERROR connecting\n");
         return 0;
     }
-    printf("Successfully connected to socket");
+    printf("Successfully connected to socket\n");
     return 1;
 }
 
@@ -36,4 +42,9 @@ int client::read() {
 
 int client::send() {
     return 0;
+}
+
+void client::closeConn(){
+    close(sockfd);
+    printf("Successfully closed the connection\n");
 }

@@ -24,7 +24,7 @@ class client {
      * the servers IP and port. This is followed by opening a connection with the socket. Returns 0 when fails.
      * @return int
      */
-    int initiate(int portno, const char * hostname);
+    int initiate();
     /**
      * Read message from the socket, returns 0 if fails.
      * @return int
@@ -35,6 +35,11 @@ class client {
      * @return int
      */
     int send();
+    /**
+     * Closes the connection with the socket.
+     * @return
+     */
+    void closeConn();
     private:
     int sockfd, portno, n;
     struct sockaddr_in serv_addr;

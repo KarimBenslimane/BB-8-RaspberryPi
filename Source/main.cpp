@@ -12,7 +12,8 @@ using namespace std;
  */
 int main() {
     client* client1 = new client();
-    client1->initiate(4567, "10.42.0.1");
+    client1->initiate();
+    client1->closeConn();
     return 0;
 }
 
